@@ -1,20 +1,22 @@
 class PigLatinizer
-  attr_reader :word
+  attr_reader :user_string
 
   def initialize
-    @word = word
+    @user_string = user_string
   end
 
-  def piglatinize(word)
-    #need to account for double consonants
-    first_letter = word.slice!(0)
-    #this accounts for vowels
-    if first_letter.match(/[aAeEiIoOuU]/)
-      pgword = word + first_letter + 'way'
-    else
-      pgword = word + first_letter + 'ay'
-    end
+  def piglatinize(user_string)
+    #%w is a word array
+    vowels = %w{a e i o u}
 
+    user_string.gsub(/(\A|\s)\w+/) do |str|
+        str.strip!
+      while not vowels.include? str[0] or (str[0] == 'u' and str[-1] == 'q')
+        str += str[0]
+        str = str[1..-1]
+      end
+      str  = ' ' + str + 'ay'
+    end.strip
   end
 
 end
