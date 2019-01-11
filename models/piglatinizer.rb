@@ -6,12 +6,14 @@ class PigLatinizer
   end
 
   def piglatinize(string)
+    #translates word into piglatin
     a = string.split(" ")
     b = a.map {|word| piglatinize_word(word)}
     b.join(" ")
   end
 
   def piglatinize_word(word)
+    #tests and makes specific changes for words starting with a vowel, consonant, double consonants, qu
 
     first_letter = word[0].downcase
       if ["a", "e", "i", "o", "u"].include?(first_letter)
@@ -28,6 +30,6 @@ class PigLatinizer
 
         "#{word[consonants.length..-1] + consonants.join + "ay"}"
       end
-  end 
+  end
 
 end
